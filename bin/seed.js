@@ -1,89 +1,112 @@
-const mongoose = require("mongoose")
-const User = require("../models/User.model")
-const Author = require("../models/article.model")
+const mongoose = require("mongoose");
+const User = require("../models/User.model");
+const Article = require("../models/article.model");
+const bcrypt = require("bcrypt");
+const users = [];
 
-const books = [
-  {
-    title: "The Hunger Games",
-    description:
-      "The Hunger Games is a 2008 dystopian novel by the American writer Suzanne Collins. It is written in the voice of 16-year-old Katniss Everdeen, who lives in the future, post-apocalyptic nation of Panem in North America. The Capitol, a highly advanced metropolis, exercises political control over the rest of the nation. The Hunger Games is an annual event in which one boy and one girl aged 12–18 from each of the twelve districts surrounding the Capitol are selected by lottery to compete in a televised battle royale to the death.",
-    rating: 10,
-    author: "Suzanne Collins",
-  },
-  {
-    title: "Harry Potter v.1 (Harry Potter and the Philosopher's Stone)",
-    description: "Harry Potter v1",
-    rating: 9,
-    author: "J.K. Rowling",
-  },
-  {
-    title: "Harry Potter v.2 (The Chamber Of Secrets)",
-    description: "Harry Potter v2",
-    rating: 9,
-    author: "J.K. Rowling",
-  },
-]
+async function createUsers() {
+  const userNames = ["dieter", "paul", "anna"];
+  for (const userName of userNames) {
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(userName, salt);
+    const user = { username: userName, password: password };
+    console.log(user);
+    users.push(user);
+  }
+}
 
-const authors = [
+function addUserToArticle(userArr, articleArr) {
+  console.log(Array.isArray(userArr));
+
+  articleArr.forEach((article) => {
+    const randomUser = userArr[Math.floor(Math.random() * 2)];
+    console.log(`Picked ${randomUser} of ${userArr}`);
+    article.author = randomUser._id;
+  });
+}
+
+const articles = [
   {
-    name: "Suzanne Collins",
-    age: 40,
-    country: "US",
+    title: "The one and only",
+    topics: ["News", "Celebrities"],
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae metus fermentum, tincidunt nibh in, ullamcorper arcu. Aenean mattis metus vitae neque lacinia tincidunt. Pellentesque blandit finibus purus nec pulvinar. Pellentesque maximus auctor leo. Cras elementum tincidunt augue nec luctus. Fusce placerat faucibus risus, id eleifend sem bibendum nec. Nullam id felis tempus, sollicitudin lectus ut, blandit nulla. Quisque ultrices ex vel diam finibus egestas. Praesent vel tortor at elit semper aliquam in nec lectus. Integer vel nunc maximus, efficitur nisl ut, efficitur ipsum. In ac ante sed tortor iaculis egestas id tincidunt tortor.
+Fusce in vehicula ligula. Mauris ante tortor, placerat eget finibus eu, fermentum vel risus. Ut pharetra sit amet lacus nec vehicula. Phasellus dictum, nunc nec vehicula pretium, justo risus scelerisque nulla, quis vulputate odio augue id urna. Duis odio ex, ornare at sapien non, cursus blandit ligula. Suspendisse eu pretium neque. Aliquam sit amet justo ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut est posuere elit commodo cursus nec ac nisi. Morbi sagittis efficitur mi quis commodo. Etiam ut libero in felis sodales sodales nec sed nulla. Aenean vitae velit quis lectus rhoncus luctus non a quam. Quisque vestibulum sem quam, vel vestibulum dolor accumsan sit amet. Donec id mattis urna, in vestibulum augue.
+Fusce sed massa facilisis, faucibus augue ac, congue massa. Aliquam a condimentum augue. Nam vehicula, lorem in venenatis vehicula, lorem ipsum posuere risus, ac pulvinar ex massa ac nisi. Mauris et congue enim, a consequat justo. Donec auctor sem ornare luctus consectetur. Donec suscipit, ipsum porta facilisis hendrerit, quam velit luctus metus, sit amet imperdiet tellus ipsum vitae mauris. Quisque ultricies lectus ultricies elit molestie, ac ullamcorper turpis placerat.
+Etiam tincidunt sapien ligula, id efficitur libero egestas in. Ut vitae suscipit ipsum. Sed eros felis, porttitor commodo sem efficitur, suscipit consequat lacus. Aliquam volutpat diam sed efficitur convallis. Quisque scelerisque, mi eget tempor imperdiet, ante augue molestie est, ut dapibus lorem quam ut dolor. Maecenas facilisis turpis ac velit congue, vitae condimentum est tempus. Integer sodales, augue et sodales consequat, tortor dui volutpat lectus, nec finibus nisi ex quis ipsum. In tristique, velit eu vestibulum sagittis, justo ipsum malesuada mi, at porta ex metus vitae est. Integer quis massa et leo ornare ullamcorper et ac diam.
+Morbi scelerisque, nunc at ornare malesuada, ante nisi cursus nulla, et iaculis neque erat at metus. Vivamus justo risus, convallis in commodo sit amet, ultrices ac ex. Cras ut massa turpis. Morbi velit ipsum, laoreet ut faucibus et, consequat sed velit. Donec et augue arcu. Aenean sed lectus a quam sodales tincidunt a eu est. Pellentesque in nunc vitae ligula volutpat varius at nec lectus. Mauris risus purus, dictum sodales mauris sed, volutpat dapibus magna. Proin dignissim sed mi ut suscipit.
+`,
   },
   {
-    name: "J.K. Rowling",
-    age: 50,
-    country: "UK",
+    title: "The one and only",
+    topics: ["News", "Celebrities"],
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae metus fermentum, tincidunt nibh in, ullamcorper arcu. Aenean mattis metus vitae neque lacinia tincidunt. Pellentesque blandit finibus purus nec pulvinar. Pellentesque maximus auctor leo. Cras elementum tincidunt augue nec luctus. Fusce placerat faucibus risus, id eleifend sem bibendum nec. Nullam id felis tempus, sollicitudin lectus ut, blandit nulla. Quisque ultrices ex vel diam finibus egestas. Praesent vel tortor at elit semper aliquam in nec lectus. Integer vel nunc maximus, efficitur nisl ut, efficitur ipsum. In ac ante sed tortor iaculis egestas id tincidunt tortor.
+Fusce in vehicula ligula. Mauris ante tortor, placerat eget finibus eu, fermentum vel risus. Ut pharetra sit amet lacus nec vehicula. Phasellus dictum, nunc nec vehicula pretium, justo risus scelerisque nulla, quis vulputate odio augue id urna. Duis odio ex, ornare at sapien non, cursus blandit ligula. Suspendisse eu pretium neque. Aliquam sit amet justo ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut est posuere elit commodo cursus nec ac nisi. Morbi sagittis efficitur mi quis commodo. Etiam ut libero in felis sodales sodales nec sed nulla. Aenean vitae velit quis lectus rhoncus luctus non a quam. Quisque vestibulum sem quam, vel vestibulum dolor accumsan sit amet. Donec id mattis urna, in vestibulum augue.
+Fusce sed massa facilisis, faucibus augue ac, congue massa. Aliquam a condimentum augue. Nam vehicula, lorem in venenatis vehicula, lorem ipsum posuere risus, ac pulvinar ex massa ac nisi. Mauris et congue enim, a consequat justo. Donec auctor sem ornare luctus consectetur. Donec suscipit, ipsum porta facilisis hendrerit, quam velit luctus metus, sit amet imperdiet tellus ipsum vitae mauris. Quisque ultricies lectus ultricies elit molestie, ac ullamcorper turpis placerat.
+Etiam tincidunt sapien ligula, id efficitur libero egestas in. Ut vitae suscipit ipsum. Sed eros felis, porttitor commodo sem efficitur, suscipit consequat lacus. Aliquam volutpat diam sed efficitur convallis. Quisque scelerisque, mi eget tempor imperdiet, ante augue molestie est, ut dapibus lorem quam ut dolor. Maecenas facilisis turpis ac velit congue, vitae condimentum est tempus. Integer sodales, augue et sodales consequat, tortor dui volutpat lectus, nec finibus nisi ex quis ipsum. In tristique, velit eu vestibulum sagittis, justo ipsum malesuada mi, at porta ex metus vitae est. Integer quis massa et leo ornare ullamcorper et ac diam.
+Morbi scelerisque, nunc at ornare malesuada, ante nisi cursus nulla, et iaculis neque erat at metus. Vivamus justo risus, convallis in commodo sit amet, ultrices ac ex. Cras ut massa turpis. Morbi velit ipsum, laoreet ut faucibus et, consequat sed velit. Donec et augue arcu. Aenean sed lectus a quam sodales tincidunt a eu est. Pellentesque in nunc vitae ligula volutpat varius at nec lectus. Mauris risus purus, dictum sodales mauris sed, volutpat dapibus magna. Proin dignissim sed mi ut suscipit.
+`,
   },
-]
+  {
+    title: "The one and only",
+    topics: ["News", "Celebrities"],
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae metus fermentum, tincidunt nibh in, ullamcorper arcu. Aenean mattis metus vitae neque lacinia tincidunt. Pellentesque blandit finibus purus nec pulvinar. Pellentesque maximus auctor leo. Cras elementum tincidunt augue nec luctus. Fusce placerat faucibus risus, id eleifend sem bibendum nec. Nullam id felis tempus, sollicitudin lectus ut, blandit nulla. Quisque ultrices ex vel diam finibus egestas. Praesent vel tortor at elit semper aliquam in nec lectus. Integer vel nunc maximus, efficitur nisl ut, efficitur ipsum. In ac ante sed tortor iaculis egestas id tincidunt tortor.
+Fusce in vehicula ligula. Mauris ante tortor, placerat eget finibus eu, fermentum vel risus. Ut pharetra sit amet lacus nec vehicula. Phasellus dictum, nunc nec vehicula pretium, justo risus scelerisque nulla, quis vulputate odio augue id urna. Duis odio ex, ornare at sapien non, cursus blandit ligula. Suspendisse eu pretium neque. Aliquam sit amet justo ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut est posuere elit commodo cursus nec ac nisi. Morbi sagittis efficitur mi quis commodo. Etiam ut libero in felis sodales sodales nec sed nulla. Aenean vitae velit quis lectus rhoncus luctus non a quam. Quisque vestibulum sem quam, vel vestibulum dolor accumsan sit amet. Donec id mattis urna, in vestibulum augue.
+Fusce sed massa facilisis, faucibus augue ac, congue massa. Aliquam a condimentum augue. Nam vehicula, lorem in venenatis vehicula, lorem ipsum posuere risus, ac pulvinar ex massa ac nisi. Mauris et congue enim, a consequat justo. Donec auctor sem ornare luctus consectetur. Donec suscipit, ipsum porta facilisis hendrerit, quam velit luctus metus, sit amet imperdiet tellus ipsum vitae mauris. Quisque ultricies lectus ultricies elit molestie, ac ullamcorper turpis placerat.
+Etiam tincidunt sapien ligula, id efficitur libero egestas in. Ut vitae suscipit ipsum. Sed eros felis, porttitor commodo sem efficitur, suscipit consequat lacus. Aliquam volutpat diam sed efficitur convallis. Quisque scelerisque, mi eget tempor imperdiet, ante augue molestie est, ut dapibus lorem quam ut dolor. Maecenas facilisis turpis ac velit congue, vitae condimentum est tempus. Integer sodales, augue et sodales consequat, tortor dui volutpat lectus, nec finibus nisi ex quis ipsum. In tristique, velit eu vestibulum sagittis, justo ipsum malesuada mi, at porta ex metus vitae est. Integer quis massa et leo ornare ullamcorper et ac diam.
+Morbi scelerisque, nunc at ornare malesuada, ante nisi cursus nulla, et iaculis neque erat at metus. Vivamus justo risus, convallis in commodo sit amet, ultrices ac ex. Cras ut massa turpis. Morbi velit ipsum, laoreet ut faucibus et, consequat sed velit. Donec et augue arcu. Aenean sed lectus a quam sodales tincidunt a eu est. Pellentesque in nunc vitae ligula volutpat varius at nec lectus. Mauris risus purus, dictum sodales mauris sed, volutpat dapibus magna. Proin dignissim sed mi ut suscipit.
+`,
+  },
+  {
+    title: "The one and only",
+    topics: ["News", "Celebrities"],
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae metus fermentum, tincidunt nibh in, ullamcorper arcu. Aenean mattis metus vitae neque lacinia tincidunt. Pellentesque blandit finibus purus nec pulvinar. Pellentesque maximus auctor leo. Cras elementum tincidunt augue nec luctus. Fusce placerat faucibus risus, id eleifend sem bibendum nec. Nullam id felis tempus, sollicitudin lectus ut, blandit nulla. Quisque ultrices ex vel diam finibus egestas. Praesent vel tortor at elit semper aliquam in nec lectus. Integer vel nunc maximus, efficitur nisl ut, efficitur ipsum. In ac ante sed tortor iaculis egestas id tincidunt tortor.
+Fusce in vehicula ligula. Mauris ante tortor, placerat eget finibus eu, fermentum vel risus. Ut pharetra sit amet lacus nec vehicula. Phasellus dictum, nunc nec vehicula pretium, justo risus scelerisque nulla, quis vulputate odio augue id urna. Duis odio ex, ornare at sapien non, cursus blandit ligula. Suspendisse eu pretium neque. Aliquam sit amet justo ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut est posuere elit commodo cursus nec ac nisi. Morbi sagittis efficitur mi quis commodo. Etiam ut libero in felis sodales sodales nec sed nulla. Aenean vitae velit quis lectus rhoncus luctus non a quam. Quisque vestibulum sem quam, vel vestibulum dolor accumsan sit amet. Donec id mattis urna, in vestibulum augue.
+Fusce sed massa facilisis, faucibus augue ac, congue massa. Aliquam a condimentum augue. Nam vehicula, lorem in venenatis vehicula, lorem ipsum posuere risus, ac pulvinar ex massa ac nisi. Mauris et congue enim, a consequat justo. Donec auctor sem ornare luctus consectetur. Donec suscipit, ipsum porta facilisis hendrerit, quam velit luctus metus, sit amet imperdiet tellus ipsum vitae mauris. Quisque ultricies lectus ultricies elit molestie, ac ullamcorper turpis placerat.
+Etiam tincidunt sapien ligula, id efficitur libero egestas in. Ut vitae suscipit ipsum. Sed eros felis, porttitor commodo sem efficitur, suscipit consequat lacus. Aliquam volutpat diam sed efficitur convallis. Quisque scelerisque, mi eget tempor imperdiet, ante augue molestie est, ut dapibus lorem quam ut dolor. Maecenas facilisis turpis ac velit congue, vitae condimentum est tempus. Integer sodales, augue et sodales consequat, tortor dui volutpat lectus, nec finibus nisi ex quis ipsum. In tristique, velit eu vestibulum sagittis, justo ipsum malesuada mi, at porta ex metus vitae est. Integer quis massa et leo ornare ullamcorper et ac diam.
+Morbi scelerisque, nunc at ornare malesuada, ante nisi cursus nulla, et iaculis neque erat at metus. Vivamus justo risus, convallis in commodo sit amet, ultrices ac ex. Cras ut massa turpis. Morbi velit ipsum, laoreet ut faucibus et, consequat sed velit. Donec et augue arcu. Aenean sed lectus a quam sodales tincidunt a eu est. Pellentesque in nunc vitae ligula volutpat varius at nec lectus. Mauris risus purus, dictum sodales mauris sed, volutpat dapibus magna. Proin dignissim sed mi ut suscipit.
+`,
+  },
+  {
+    title: "The one and only",
+    topics: ["News", "Celebrities"],
+    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae metus fermentum, tincidunt nibh in, ullamcorper arcu. Aenean mattis metus vitae neque lacinia tincidunt. Pellentesque blandit finibus purus nec pulvinar. Pellentesque maximus auctor leo. Cras elementum tincidunt augue nec luctus. Fusce placerat faucibus risus, id eleifend sem bibendum nec. Nullam id felis tempus, sollicitudin lectus ut, blandit nulla. Quisque ultrices ex vel diam finibus egestas. Praesent vel tortor at elit semper aliquam in nec lectus. Integer vel nunc maximus, efficitur nisl ut, efficitur ipsum. In ac ante sed tortor iaculis egestas id tincidunt tortor.
+Fusce in vehicula ligula. Mauris ante tortor, placerat eget finibus eu, fermentum vel risus. Ut pharetra sit amet lacus nec vehicula. Phasellus dictum, nunc nec vehicula pretium, justo risus scelerisque nulla, quis vulputate odio augue id urna. Duis odio ex, ornare at sapien non, cursus blandit ligula. Suspendisse eu pretium neque. Aliquam sit amet justo ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut est posuere elit commodo cursus nec ac nisi. Morbi sagittis efficitur mi quis commodo. Etiam ut libero in felis sodales sodales nec sed nulla. Aenean vitae velit quis lectus rhoncus luctus non a quam. Quisque vestibulum sem quam, vel vestibulum dolor accumsan sit amet. Donec id mattis urna, in vestibulum augue.
+Fusce sed massa facilisis, faucibus augue ac, congue massa. Aliquam a condimentum augue. Nam vehicula, lorem in venenatis vehicula, lorem ipsum posuere risus, ac pulvinar ex massa ac nisi. Mauris et congue enim, a consequat justo. Donec auctor sem ornare luctus consectetur. Donec suscipit, ipsum porta facilisis hendrerit, quam velit luctus metus, sit amet imperdiet tellus ipsum vitae mauris. Quisque ultricies lectus ultricies elit molestie, ac ullamcorper turpis placerat.
+Etiam tincidunt sapien ligula, id efficitur libero egestas in. Ut vitae suscipit ipsum. Sed eros felis, porttitor commodo sem efficitur, suscipit consequat lacus. Aliquam volutpat diam sed efficitur convallis. Quisque scelerisque, mi eget tempor imperdiet, ante augue molestie est, ut dapibus lorem quam ut dolor. Maecenas facilisis turpis ac velit congue, vitae condimentum est tempus. Integer sodales, augue et sodales consequat, tortor dui volutpat lectus, nec finibus nisi ex quis ipsum. In tristique, velit eu vestibulum sagittis, justo ipsum malesuada mi, at porta ex metus vitae est. Integer quis massa et leo ornare ullamcorper et ac diam.
+Morbi scelerisque, nunc at ornare malesuada, ante nisi cursus nulla, et iaculis neque erat at metus. Vivamus justo risus, convallis in commodo sit amet, ultrices ac ex. Cras ut massa turpis. Morbi velit ipsum, laoreet ut faucibus et, consequat sed velit. Donec et augue arcu. Aenean sed lectus a quam sodales tincidunt a eu est. Pellentesque in nunc vitae ligula volutpat varius at nec lectus. Mauris risus purus, dictum sodales mauris sed, volutpat dapibus magna. Proin dignissim sed mi ut suscipit.
+`,
+  },
+];
 
 async function seedData() {
   try {
     /* CONNECT */
     const MONGO_URI =
-      process.env.MONGODB_URI || "mongodb://localhost/library-project"
-    const conn = await mongoose.connect(MONGO_URI)
+      process.env.MONGODB_URI || "mongodb://localhost/easy-blog";
+    const conn = await mongoose.connect(MONGO_URI);
     console.log(
       `Connected to Mongo! Database name: "${conn.connections[0].name}"`
-    )
+    );
+    // Uncomment for Delete dat
+    // await User.deleteMany();
+    // await Article.deleteMany();
 
-    /* DELETE EXISTING DATA */
-    // const deletedBooks = await Book.deleteMany({}); //WARNING: this will delete all books in your DB !!
-    // const deletedAuthors = await Author.deleteMany({}); //WARNING: this will delete all authors in your DB !!
-    // console.log(deletedBooks, deletedAuthors);
-
-    /* Seed authors */
-    const authorsCreated = await Author.insertMany(authors)
-    console.log(`Number of authors created... ${authorsCreated.length} `)
-
-    /* Seed books */
-    /* (for each book, we need to find the objectId of its author) */
-
-    const booksWithIds = [] //will be an array of objects (each object contains the details of a book, including the author id)
-
-    for (const bookObj of books) {
-      const authorName = bookObj.author
-      const authorDetails = await Author.findOne({ name: authorName })
-      const authorId = authorDetails._id
-
-      const newBook = {
-        title: bookObj.title,
-        description: bookObj.description,
-        rating: bookObj.rating,
-        author: authorId,
-      }
-
-      booksWithIds.push(newBook)
-    }
-
-    const booksCreated = await Book.insertMany(booksWithIds)
-    console.log(`Number of books created... ${booksCreated.length} `)
-
+    await createUsers();
+    const newUsers = await User.create(users);
+    console.log(`Created ${newUsers.length} users`);
+    const usersFromDB = User.find({});
+    addUserToArticle(newUsers, articles);
+    const articlesFromDb = await Article.create(articles);
+    console.log(`created ${articlesFromDb.length} articles`);
     /* CLOSE DB CONNECTION */
-    mongoose.connection.close()
   } catch (e) {
-    console.log("error seeding data in DB....", e)
+    console.log("error seeding data in DB....", e);
+  }
+  try {
+    mongoose.connection.close();
+  } catch (e) {
+    console.log(e);
   }
 }
 
-seedData()
+seedData();

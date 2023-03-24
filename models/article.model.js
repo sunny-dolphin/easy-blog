@@ -1,21 +1,31 @@
-const { Schema, model } = require("mongoose")
+const { Schema, model } = require("mongoose");
 
-const articleSchema = new Schema({
-  author: {
-    type: Schema.Types.ObjectId,
-    required: true,
+const articleSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    topics: {
+      type: [String],
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
-  topics: {
-    type: [String],
-    required: true,
-  },
-  views: {
-    type: Number,
-    default: 0,
-  },
-  timestamps: true,
-})
+  { timestamps: true }
+);
 
-const Article = model("Article", articleSchema)
+const Article = model("Article", articleSchema);
 
-module.exports = Article
+module.exports = Article;
