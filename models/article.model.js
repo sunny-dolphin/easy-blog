@@ -2,11 +2,11 @@ const { Schema, model } = require("mongoose")
 
 const articleSchema = new Schema({
   author: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
   },
   topics: {
-    type: String,
+    type: [String],
     required: true,
   },
   views: {
