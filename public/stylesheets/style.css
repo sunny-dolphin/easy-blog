@@ -10,3 +10,68 @@ a {
 h1 {
   color: 15px;
 }
+
+nav {
+  background-color: #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+nav a:hover {
+  color: #ddd;
+}
+
+nav h1 {
+  color: white;
+  margin: 0;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+nav li {
+  list-style: none;
+  margin: 0 10px;
+}
+
+.form {
+  display: block;
+  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid black;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.form input {
+  font-size: 16px;
+  margin-bottom: 16px;
+  padding: 7px 10px;
+}
+
+.btn {
+  border: 1px solid black;
+  padding: 7px 12px;
+  background-color: white;
+  text-decoration: none;
+  color: black;
+}
+
+.btn:hover {
+  background-color: black;
+  color: white;
+}

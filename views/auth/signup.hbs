@@ -1,17 +1,16 @@
-<div id="form">
+<br /><br /><br />
+<a href="/" class="btn">Home</a>
+<a href="#" class="btn">Authors</a>
+
+<div id="form" class="form">
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST">
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Sign Up</button>
-
+    <input type="text" name="username" placeholder="Your username" />
+    <br />
+    <input type="password" name="password" placeholder="Your password" />
+    <br />
+    <input type="submit" value="Signup" class="btn" />
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

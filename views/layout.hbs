@@ -10,6 +10,20 @@
 
   <body>
 
+    <nav>
+      <h1>Easy Blog</h1>
+      <ul>
+        <script type="text/javascript">console.log(isLoggedIn)</script>
+        {{#if isLoggedIn}}
+
+          <li><a href="/auth/logout">Logout</a></li>
+        {{else}}
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/signup">Signup</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+
     {{{body}}}
 
     <script src="/js/script.js"></script>
