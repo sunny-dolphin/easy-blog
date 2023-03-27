@@ -1,13 +1,30 @@
-<form action="../views/create-article.hbs" method="POST" class="form">
-  <h2>Create A New Article</h2>
-  <input type="text" name="title" placeholder="Enter the title" />
-  <br />
-  <input type="text" name="topic" placeholder="Enter the topic(s)" />
-  <br />
-  <input type="text" name"author" placeholder="Enter the author" />
-  <textarea name="text"></textarea>
-  <br />
-  <input type="submit" value="Create" class="btn" />
+  <div>
+    <form action="../views/create-article.hbs" method="POST" class="form"></form>
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" placeholder="Enter the title....">
+
+    <label for="lname">Author</label>
+    <input type="text" id="author" name="author" placeholder="Enter the author....">
+
+    <label for="topics">Topics</label>
+    <select id="topics" name="topics">
+      <option value="celebrities">Celebrities</option>
+      <option value="news">News</option>
+      <option value="sports">Sports</option>
+      <option value="personal">Personal</option>
+      <option value="food">Food</option>
+      
+    </select>
+    
+    <textarea name="text"></textarea>
+  
+    <input type="create" value="Create">
+  </form>
+</div>
+
+</body>
+</html>
+
 
   {{#if errorMessage}}
     <p class="error">{{errorMessage}}</p> 
