@@ -1,0 +1,15 @@
+<article class="container">
+  <div class="row">
+    <div class="col8">
+      <img src="{{article.img}}" alt"" class="img-fluid rounded float-center">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col6">
+      <h1>{{article.title}}</h1>
+      <p>By <a href="/users/{{article.authorId}}">{{article.author}}</a> Created on {{article.creationMonth}},
+        {{article.creationYear}}</p>
+      <p class="float-center">{{article.content}}</p>
+    </div>
+  </div>
+</article>
