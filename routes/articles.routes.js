@@ -9,6 +9,27 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const User = require("../models/User.model");
 
+// Create an article
+router.get("/create", (req, res, next) => {
+  res.render("article/create-article");
+});
+
+// router.post("/create", (req, res, next) => {
+//   const blog = {
+//     title: req.body.title,
+//     author: req.body.author,
+//     topics: req.body.topics,
+//     content: req.body.content,
+//   };
+
+//   Article.create(blog)
+//     .then((newArticle) => {
+//       console.log(newArticle);
+//       res.redirect(`/articles/${newArticle.id}`);
+//     })
+//     .catch((err) => next(err));
+// });
+
 router.get("/:id", (req, res, next) => {
   const articleId = req.params.id;
   Article.findById(articleId)
@@ -25,28 +46,6 @@ router.get("/:id", (req, res, next) => {
       };
       console.log(article);
       res.render("../views/article/article-page", { article });
-    })
-    .catch((err) => next(err));
-});
-
-// Create an article
-router.get("/create", (req, res, next) => {
-  res.render("articles/create");
-});
-
-router.post("/create", (req, res, next) => {
-  const blog = {
-    title: req.body.title,
-    author: req.body.author,
-    topics: req.body.topics,
-    content: req.body.content,
-    views: views.body.content,
-  };
-
-  Article.create(blog)
-    .then((newArticle) => {
-      console.log(newArticle);
-      res.redirect(`/articles/${newArticle.id}`);
     })
     .catch((err) => next(err));
 });
