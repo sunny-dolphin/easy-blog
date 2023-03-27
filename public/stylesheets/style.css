@@ -76,3 +76,11 @@ nav li {
   background-color: black;
   color: white;
 }
+
+/******************
+Adding stuff to bootstrap classes
+******************/
+
+.card {
+  margin: 10px;
+}
