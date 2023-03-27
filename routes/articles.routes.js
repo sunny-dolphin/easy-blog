@@ -3,11 +3,11 @@ const router = express.Router();
 const mongoose = require("mongoose");
 // Require the User model in order to interact with the database
 const Article = require("../models/article.model");
-const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const User = require("../models/User.model");
 
 router.get("/:id", (req, res, next) => {
   const articleId = req.params.id;
@@ -35,16 +35,17 @@ router.get("/create", (req, res, next) => {
 });
 
 router.post("/create", (req, res, next) => {
-  const blog = new Article({
+  const blog = {
     title: req.body.title,
     author: req.body.author,
     topics: req.body.topics,
     content: req.body.content,
     views: views.body.content,
-  });
+  };
 
-  Article.save()
+  Article.create(blog)
     .then((newArticle) => {
+      console.log(newArticle);
       res.redirect(`/articles/${newArticle.id}`);
     })
     .catch((err) => next(err));
