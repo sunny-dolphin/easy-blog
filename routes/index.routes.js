@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Article = require("../models/article.model");
 const User = require("../models/User.model");
-
 /* GET home page */
 router.get("/", (req, res, next) => {
   Article.find({})
@@ -31,7 +30,6 @@ router.get("/", (req, res, next) => {
       res.render("index", { articles });
     })
     .catch((err) => next(err));
-  res.render("index");
 });
 
 module.exports = router;
