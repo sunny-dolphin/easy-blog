@@ -1,21 +1,18 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>By Danial and Valentin</p>
 <h1>Blogspace</h1>
 <div class="row">
   {{#each articles}}
-    <div class="col-3">
+  <div class="col-3">
 
-      <div class="card">
-        <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" />
-        <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <p class="card-text">{{this.author}}</p>
-          <p class="card-text">{{this.createdYear}}</p>
-          <p class="card-text">{{this.content}}</p>
-          <a href="#" class="btn btn-primary">See full Article</a>
-        </div>
+    <div class="card">
+      <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}">
+      <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p class="card-text">{{this.author}}</p>
+        <p class="card-text">{{this.createdYear}}</p>
+        <p class=" card-text">{{this.content}}</p>
+        <a href="/articles/{{this.id}}" class="btn btn-primary">See full Article</a>
       </div>
     </div>
-
+  </div>
   {{/each}}
 </div>
