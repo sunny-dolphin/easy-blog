@@ -90,4 +90,11 @@ router.post("/articles/:id/edit", (req, res, next) => {
     .then(() => res.redirect(`/articles`))
     .catch((error) => next(error));
 });
+
+router.post("/articles/:id/delete", (req, res, next) => {
+  const { id } = req.params;
+  Article.findByIdAndDelete(id)
+    .then(() => res.redirect("/articles"))
+    .catch((error) => next(error));
+});
 module.exports = router;
