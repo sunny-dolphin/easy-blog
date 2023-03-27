@@ -50,4 +50,22 @@ router.post("/create", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get("articles/:id/edit", (req, res, next) => {
+  const { id } = req.params;
+  Article.findById(id)
+    .then((articleToEdit) => {
+      console.log(articleToEdit);
+      res.render(`articles/update-articles.hbs`, { article: articleToEdit });
+    })
+    .catch((e) => {
+      console.log("error updating article", e);
+      next(e);
+    });
+});
+
+router.post("/articles/:id/edit", (req, res, next) => {
+  Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(() => res.redirect(`/drones`))
+    .catch((error) => next(error));
+});
 module.exports = router;
