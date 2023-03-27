@@ -1,0 +1,14 @@
+<form action="../views/create-article.hbs" method="POST" class="form">
+  <h2>Create A New Article</h2>
+  <input type="text" name="title" placeholder="Enter the title" />
+  <br />
+  <input type="text" name="topic" placeholder="Enter the topic(s)" />
+  <br />
+  <textarea name="text"></textarea>
+  <br />
+  <input type="submit" value="Create" class="btn" />
+
+  {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+</form>
