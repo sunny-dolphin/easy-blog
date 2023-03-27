@@ -13,6 +13,7 @@ const articleSchema = new Schema(
     topics: {
       type: [String],
       required: true,
+      enum: ["Celebrities", "News", "Sports", "Personal", "Food"],
     },
     content: {
       type: String,
