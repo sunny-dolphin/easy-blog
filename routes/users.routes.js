@@ -16,12 +16,17 @@ router.get("/:userId", (req, res, next) => {
       }
     })
     .then((articlesFromDb) => {
-      // const articles = articlesFromDb.filter((article) => {
-      //   if (article.author.id === user.id) {
-      //     return article;
-      //   }
-      // });
-      const articles = articlesFromDb;
+      const articles = articlesFromDb.map((article) => {
+        return (article = {
+          content: article.content,
+          title: article.title,
+          author: article.author.username,
+          authorId: article.author._id,
+          creationMonth: article.createdAt.getMonth(),
+          creationYear: article.createdAt.getFullYear(),
+          img: article.imgUrl,
+        });
+      });
       res.render("user/user-page", { articles });
     })
     .catch((err) => {
