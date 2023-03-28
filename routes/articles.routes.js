@@ -54,7 +54,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Create an article
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("article/create-article");
 });
 
@@ -77,12 +77,12 @@ router.post("/create", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get("articles/:id/edit", (req, res, next) => {
+router.get("/:id/edit", (req, res, next) => {
   const { id } = req.params;
   Article.findById(id)
     .then((articleToEdit) => {
       console.log(articleToEdit);
-      res.render(`articles/update-articles.hbs`, { article: articleToEdit });
+      res.render(`article/update-articles`, { article: articleToEdit });
     })
     .catch((e) => {
       console.log("error updating article", e);
@@ -90,13 +90,13 @@ router.get("articles/:id/edit", (req, res, next) => {
     });
 });
 
-router.post("/articles/:id/edit", (req, res, next) => {
+router.post("/:id/edit", (req, res, next) => {
   Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(() => res.redirect(`/articles`))
     .catch((error) => next(error));
 });
 
-router.post("/articles/:id/delete", (req, res, next) => {
+router.post("/:id/delete", (req, res, next) => {
   const { id } = req.params;
   Article.findByIdAndDelete(id)
     .then(() => res.redirect("/articles"))

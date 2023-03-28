@@ -19,6 +19,7 @@ router.get("/:userId", (req, res, next) => {
       const articles = articlesFromDb.map((article) => {
         return (article = {
           content: article.content,
+          id: article.id,
           title: article.title,
           author: article.author.username,
           authorId: article.author._id,
