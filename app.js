@@ -23,6 +23,14 @@ const projectName = "easy-blog";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
+//Custom middleware
+app.use("/", (req, res, next) => {
+  if (req.session.currentUser) {
+    res.locals.currentUser = req.session.currentUser;
+  }
+  next();
+});
+
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
@@ -31,6 +39,7 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
 const articleRoutes = require("./routes/articles.routes");
+const isLoggedIn = require("./middleware/isLoggedIn");
 app.use("/articles", articleRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
