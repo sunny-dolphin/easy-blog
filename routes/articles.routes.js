@@ -14,17 +14,20 @@ router.get("/create", (req, res, next) => {
   res.render("create-article");
 });
 // Store the data received from create article form into database
-router.post("/create", (req, res, next) => {
+
+router.post("/create", isLoggedIn, (req, res, next) => {
   const blog = {
     title: req.body.title,
-    author: req.body.author,
+    author: req.session.currentUser._id,
     topics: req.body.topics,
     content: req.body.content,
+    imgUrl: req.body.imgUrl,
   };
+  console.log(blog);
 
   Article.create(blog)
     .then((newArticle) => {
-      console.log(newArticle);
+      // console.log(newArticle);
       res.redirect(`/articles/${newArticle.id}`);
     })
     .catch((err) => next(err));
@@ -44,7 +47,7 @@ router.get("/:id", (req, res, next) => {
         creationYear: article.createdAt.getFullYear(),
         img: article.imgUrl,
       };
-      console.log(article);
+      // console.log(article);
       res.render("../views/article/article-page", { article });
     })
     .catch((err) => next(err));
@@ -56,17 +59,19 @@ router.get("/create", (req, res, next) => {
 });
 
 router.post("/create", (req, res, next) => {
+  const userId = req.session._id;
   const blog = {
     title: req.body.title,
-    author: req.body.author,
+    author: userId,
     topics: req.body.topics,
     content: req.body.content,
-    views: views.body.content,
+    imgUrl: req.body.imgUrl,
   };
+  console.log("This will be the new:", blog);
 
   Article.create(blog)
     .then((newArticle) => {
-      console.log(newArticle);
+      // console.log(newArticle);
       res.redirect(`/articles/${newArticle.id}`);
     })
     .catch((err) => next(err));
