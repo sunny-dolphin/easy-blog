@@ -82,7 +82,7 @@ async function seedData() {
   try {
     /* CONNECT */
     const MONGO_URI =
-      process.env.MONGODB_URI || "mongodb://localhost/easy-blog";
+      process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/easy-blog";
     const conn = await mongoose.connect(MONGO_URI);
     console.log(
       `Connected to Mongo! Database name: "${conn.connections[0].name}"`

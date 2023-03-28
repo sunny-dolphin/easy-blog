@@ -1,20 +1,21 @@
 <a href="/articles/create" class="btn btn-success">Create New Article</a>
 {{#if articles}}
-<div class="row">
-  {{#each articles}}
-  <div class="col-3">
+  <div class="row">
+    {{#each articles}}
+      <div class="col-3">
 
-    <div class="card">
-      <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}">
-      <div class="card-body">
-        <h5 class="card-title">{{this.title}}</h5>
-        <p class="card-text">{{this.author}}</p>
-        <p class="card-text">{{this.createdYear}}</p>
-        <p class=" card-text">{{this.content}}</p>
-        <a href="/articles/{{this.id}}" class="btn btn-primary">See full Article</a>
+        <div class="card">
+          <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" />
+          <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.author}}</p>
+            <p class="card-text">{{this.createdYear}}</p>
+            <p class="card-text">{{this.content}}</p>
+            <a href="/articles/{{this.id}}" class="btn btn-primary">See full
+              Article</a>
+          </div>
+        </div>
       </div>
-    </div>
+    {{/each}}
   </div>
-  {{/each}}
-</div>
 {{/if}}
