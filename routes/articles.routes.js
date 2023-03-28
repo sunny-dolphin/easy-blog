@@ -96,10 +96,10 @@ router.post("/:id/edit", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post("/:id/delete", (req, res, next) => {
+router.get("/:id/delete", (req, res, next) => {
   const { id } = req.params;
   Article.findByIdAndDelete(id)
-    .then(() => res.redirect("/articles"))
+    .then((article) => res.redirect(`/users/${article.author._id}`))
     .catch((error) => next(error));
 });
 module.exports = router;
