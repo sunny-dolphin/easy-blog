@@ -92,7 +92,7 @@ router.get("/:id/edit", (req, res, next) => {
 
 router.post("/:id/edit", (req, res, next) => {
   Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(() => res.redirect(`/articles`))
+    .then((article) => res.redirect(`/users/${article.author._id}`))
     .catch((error) => next(error));
 });
 

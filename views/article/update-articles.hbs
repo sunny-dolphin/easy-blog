@@ -1,5 +1,5 @@
 <div>
-  <form action="/article/update" method="POST" class="form">
+  <form action="/articles/{{article._id}}/edit" method="POST" class="form">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" placeholder="Enter the title...." value="{{article.title}}" required>
 
@@ -16,7 +16,7 @@
     <textarea id="content" name="content">{{article.title}}</textarea required>
     <label for="imgUrl">Image URL</label>
     <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}">
-    <input type="submit" class="btn" value="Create" />
+    <input type="submit" class="btn" value="Update" />
   </form>
 </div>
 
