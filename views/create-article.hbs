@@ -1,5 +1,5 @@
   <div>
-    <form action="../views/create-article.hbs" method="POST" class="form"></form>
+    <form action="/articles/create" method="POST" class="form">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" placeholder="Enter the title....">
 
@@ -8,17 +8,16 @@
 
     <label for="topics">Topics</label>
     <select id="topics" name="topics">
-      <option value="celebrities">Celebrities</option>
-      <option value="news">News</option>
-      <option value="sports">Sports</option>
-      <option value="personal">Personal</option>
-      <option value="food">Food</option>
+      <option value="Celebrities">Celebrities</option>
+      <option value="News">News</option>
+      <option value="Sports">Sports</option>
+      <option value="Personal">Personal</option>
+      <option value="Food">Food</option>
       
     </select>
-    
-    <textarea name="text"></textarea>
-  
-    <input type="create" value="Create">
+    <label for="content">Content</label>
+    <textarea id="content" name="content"></textarea>
+    <input type="submit" class="btn" value="Create" />
   </form>
 </div>
 

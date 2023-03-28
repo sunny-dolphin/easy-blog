@@ -11,7 +11,7 @@ const User = require("../models/User.model");
 
 // Create an article
 router.get("/create", (req, res, next) => {
-  res.render("article/create-article");
+  res.render("create-article");
 });
 
 router.post("/create", (req, res, next) => {
