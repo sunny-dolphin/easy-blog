@@ -17,13 +17,12 @@
     <ul>
       <script type="text/javascript">console.log(isLoggedIn)</script>
       {{#if currentUser}}
-
       <li><a href="/auth/logout">Logout</a></li>
+      <li><a href="/articles/create ">New Article</a></li>
       {{else}}
       <li><a href="/auth/login">Login</a></li>
       <li><a href="/auth/signup">Signup</a></li>
 
-      <li><a href="/articles/create ">New Article</a></li>
       {{/if}}
     </ul>
   </nav>
