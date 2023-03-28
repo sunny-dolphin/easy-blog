@@ -38,6 +38,9 @@ app.use("/", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const userRoutes = require("./routes/users.routes");
+app.use("/users", userRoutes);
+
 const articleRoutes = require("./routes/articles.routes");
 const isLoggedIn = require("./middleware/isLoggedIn");
 app.use("/articles", articleRoutes);
