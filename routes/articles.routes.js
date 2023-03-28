@@ -10,7 +10,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const User = require("../models/User.model");
 
 // Create an article
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("create-article");
 });
 // Store the data received from create article form into database
