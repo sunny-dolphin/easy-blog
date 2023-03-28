@@ -9,16 +9,16 @@ router.get("/", (req, res, next) => {
     .then((articlesFromDb) => {
       //sort Articles by Creation Date
       articlesFromDb.sort((a, b) => {
-        return a.createdAt - b.createdAt;
+        return b.createdAt - a.createdAt;
       });
       //only display three articles
-      const threeArticles = articlesFromDb.slice(0, 5);
+      const threeArticles = articlesFromDb.slice(0, 8);
       const articles = [];
       //Select and transform data for view -> this could be done with mapfunction
       for (const article of threeArticles) {
         articles.push({
           id: article._id,
-          content: article.content.slice(0, 100) + "...",
+          content: article.content.slice(0, 200) + "...",
           title: article.title,
           author: article.author.username,
           creationMonth: article.createdAt.getMonth(),
@@ -26,7 +26,7 @@ router.get("/", (req, res, next) => {
           img: article.imgUrl,
         });
       }
-      console.log(articles[0]);
+      // console.log(articles[0]);
       res.render("index", { articles });
     })
     .catch((err) => next(err));
