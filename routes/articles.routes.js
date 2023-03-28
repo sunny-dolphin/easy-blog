@@ -13,7 +13,7 @@ const User = require("../models/User.model");
 router.get("/create", (req, res, next) => {
   res.render("create-article");
 });
-
+// Store the data received from create article form into database
 router.post("/create", (req, res, next) => {
   const blog = {
     title: req.body.title,
