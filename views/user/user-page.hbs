@@ -1,29 +1,24 @@
 <a href="/articles/create" class="btn btn-success">Create New Article</a>
 {{#if articles}}
-  <div class="row">
-    {{#each articles}}
-      <div class="col-3">
+<div class="row">
+  {{#each articles}}
+  <div class="col-3">
 
-        <div class="card">
-          <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" />
-          <div class="card-body">
-            <h5 class="card-title">{{this.title}}</h5>
-            <p class="card-text">{{this.author}}</p>
-            <p class="card-text">{{this.createdYear}}</p>
-            <p class="card-text">{{this.content}}</p>
-            <a href="/articles/{{this.id}}" class="btn btn-primary">See full
-              Article</a>
-            {{log this}}
-            <a href="/articles/{{this.id}}/edit" class="btn btn-primary">Update
-              Article</a>
-            <a
-              href="/articles/{{this.id}}/delete"
-              class="btn btn-primary"
-            >Delete Article</a>
-
-          </div>
-        </div>
+    <div class="card">
+      <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" />
+      <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p class="card-text">{{this.author}}</p>
+        <p class="card-text">{{this.createdYear}}</p>
+        <p class="card-text">{{this.content}}</p>
+        <a href="/articles/{{this.id}}" class="btn btn-primary">See full
+          Article</a>
+        {{#if this.owner}}
+        {{> editDelete}}
+        {{/if}}
       </div>
-    {{/each}}
+    </div>
   </div>
+  {{/each}}
+</div>
 {{/if}}
