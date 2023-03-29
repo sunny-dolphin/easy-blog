@@ -12,13 +12,29 @@ h1 {
   color: 15px;
 }
 
+body {
+  padding: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ff1d58;
+}
+
+a {
+  color: #00b7ff;
+}
+
+h1 {
+  color: black;
+  padding: 15px;
+  text-align: center;
+}
+
 nav {
   background-color: #1e90ff;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 0px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -39,7 +55,8 @@ nav a:hover {
 
 nav h1 {
   color: white;
-  margin: 0;
+  margin-left: 25px;
+  padding: 10;
 }
 
 nav ul {
