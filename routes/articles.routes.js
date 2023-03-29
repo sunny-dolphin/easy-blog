@@ -4,11 +4,8 @@ const mongoose = require("mongoose");
 // Require the User model in order to interact with the database
 const Article = require("../models/article.model");
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
-
-const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
-const User = require("../models/User.model");
-
+const isOwner = require("../utils/isOwner");
 // Create an article
 router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("create-article");
@@ -39,6 +36,7 @@ router.get("/:id", (req, res, next) => {
     .populate("author")
     .then((article) => {
       article = {
+        id: article.id,
         content: article.content,
         title: article.title,
         author: article.author.username,
@@ -46,6 +44,7 @@ router.get("/:id", (req, res, next) => {
         creationMonth: article.createdAt.getMonth(),
         creationYear: article.createdAt.getFullYear(),
         img: article.imgUrl,
+        owner: isOwner(req, article.author),
       };
       // console.log(article);
       res.render("../views/article/article-page", { article });
