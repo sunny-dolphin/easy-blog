@@ -18,6 +18,9 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
+// Set Partial Folder
+hbs.registerPartials(__dirname + "/views/partials");
+
 const capitalize = require("./utils/capitalize");
 const projectName = "easy-blog";
 
