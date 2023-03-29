@@ -10,9 +10,10 @@
         <p class="card-text">{{this.author}}</p>
         <p class="card-text">{{this.createdYear}}</p>
         <p class="card-text description-text">{{this.content}}</p>
-        <a href="/articles/{{this.id}}" class="btn btn-primary">See full
-          Article</a {{#if this.owner}} {{> editDelete }}
-        {{/if}}>
+        <a href="/articles/{{this.id}}" class="btn btn-primary">See full Article</a>
+        {{#if this.owner}}
+        {{> editDelete }}
+        {{/if}}
       </div>
     </div>
   </div>
