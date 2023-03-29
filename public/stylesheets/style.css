@@ -13,22 +13,28 @@ h1 {
 }
 
 nav {
-  background-color: #00ddff;
+  background-color: #1e90ff;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 nav a {
   color: white;
   text-decoration: none;
   margin: 0 10px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-  color: #ddd;
+  background-color: #ee82ee;
+  color: #fff;
 }
 
 nav h1 {
