@@ -1,24 +1,33 @@
-<a href="/articles/create" class="btn btn-success">Create New Article</a>
 {{#if articles}}
-<div class="row">
+<div class="row mt-5 ">
   {{#each articles}}
-  <div class="col-3">
-
-    <div class="card">
-      <img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" />
+  <div class="col-sm-12 col-lg-4">
+    <div class="card h-100">
+      <img src="{{img}}" class="card-img-top" alt="{{this.title}}" />
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
-        <p class="card-text">{{this.author}}</p>
+        <p class="card-text">By <a href="/users/{{this.authorId}}">{{this.author}}</a></p>
         <p class="card-text">{{this.createdYear}}</p>
-        <p class="card-text">{{this.content}}</p>
-        <a href="/articles/{{this.id}}" class="btn btn-primary">See full
-          Article</a>
+        <p class="card-text description-text">{{this.content}}</p>
+        <a href="/articles/{{this.id}}" class="btn btn-primary">See full Article</a>
         {{#if this.owner}}
-        {{> editDelete}}
+        {{> editDelete }}
         {{/if}}
       </div>
     </div>
   </div>
   {{/each}}
-</div>
-{{/if}}
+  {{else}}
+  <div class="container new-button-on-user align-items-center">
+    <div class="row justify-content-center  ">
+      <div class="col-sm-6 ">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Create your first Article</h5>
+            <p class="card-text">Write something awesome for your readers</p>
+            <a href="/articles/create" class="btn btn-primary">Create your first Article</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
