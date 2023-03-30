@@ -14,14 +14,15 @@ const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
-
+// require Pawned Check
+const passwordPawned = require("../utils/checkPassword");
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", isLoggedOut, (req, res, next) => {
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
+router.post("/signup", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
   // Check that username, email, and password are provided
@@ -41,23 +42,18 @@ router.post("/signup", isLoggedOut, (req, res) => {
 
     return;
   }
-
-  //   ! This regular expression checks password for special characters and minimum length
-  /*
-  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!regex.test(password)) {
-    res
-      .status(400)
-      .render("auth/signup", {
-        errorMessage: "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-    });
-    return;
-  }
-  */
-
-  // Create a new user - start by hashing the password
-  bcrypt
-    .genSalt(saltRounds)
+  // Check if Password was pawned returns a promise that resolves to true if password was pawned
+  passwordPawned(password)
+    .then((response) => {
+      if (response) {
+        res.status(400).render("auth/signup", {
+          errorMessage: "Your password is pawned, use a password manager",
+        });
+        return;
+      }
+      // if password is allright continue to hash password
+      return bcrypt.genSalt(saltRounds);
+    })
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
