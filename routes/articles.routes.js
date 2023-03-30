@@ -30,6 +30,25 @@ router.post(
     };
     console.log(blog);
 
+    // Regular expression to check if title has only characters and spaces.
+    const regex = /^[a-zA-Z\s]+$/;
+    if (!regex.test(req.body.title)) {
+      return res.status(400).render("create-article", {
+        errorMessage:
+          "You title should only contain words, no special characters or numbers allowed",
+      });
+    }
+    if (
+      req.body.title == "" ||
+      req.body.imgUrl == "" ||
+      req.body.content == ""
+    ) {
+      return res.status(400).render("create-article", {
+        errorMessage:
+          "All the fields are mandatory, Please provide title, description and select an image",
+      });
+    }
+
     Article.create(blog)
       .then((newArticle) => {
         // console.log(newArticle);
