@@ -13,19 +13,21 @@
 
     </select>
     <label for="content">Content</label>
-    <textarea id="content" name="content">{{article.title}}</textarea required>
+    <textarea id="content" name="content" required>{{article.title}}</textarea>
     <label for="imgUrl" hidden>Image URL</label>
     {{!-- <input type="file" id="imgPath" name="imgPath" accept="image/*"> --}}
-    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}" hidden>
+    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}"
+      hidden>
     <input type="submit" class="btn" value="Update" />
   </form>
 </div>
 
 </body>
+
 </html>
 
 
-  {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p> 
-  {{/if}}
+{{#if errorMessage}}
+<p class="error">{{errorMessage}}</p>
+{{/if}}
 </form>
