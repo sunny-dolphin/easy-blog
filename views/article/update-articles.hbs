@@ -1,5 +1,5 @@
 <div>
-  <form action="/articles/{{article._id}}/edit" method="POST" class="form">
+  <form action="/articles/{{article._id}}/edit" method="POST" class="form" enctype="multipart/form-data">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" placeholder="Enter the title...." value="{{article.title}}" required>
 
@@ -13,19 +13,21 @@
 
     </select>
     <label for="content">Content</label>
-    <textarea id="content" name="content">{{article.title}}</textarea required>
-    <label for="imgUrl" hidden>Image URL</label>
-    {{!-- <input type="file" id="imgPath" name="imgPath" accept="image/*"> --}}
-    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}" hidden>
+    <textarea id="content" name="content" required>{{article.title}}</textarea>
+    <label for="imgPath">Image URL</label>
+    <input type="file" id="imgPath" name="imgPath" accept="image/*">
+    <input type="text" id="imgUrl" name="existingImg" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}"
+      hidden>
     <input type="submit" class="btn" value="Update" />
   </form>
 </div>
 
 </body>
+
 </html>
 
 
-  {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p> 
-  {{/if}}
+{{#if errorMessage}}
+<p class="error">{{errorMessage}}</p>
+{{/if}}
 </form>

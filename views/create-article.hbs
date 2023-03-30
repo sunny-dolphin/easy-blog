@@ -16,9 +16,9 @@
 
     </select>
     <label for="content">Content</label>
-    <textarea id="content" name="content"></textarea required>
+    <textarea id="content" name="content" required></textarea>
     <label for="imgPath">Select an Image</label>
-    <input type="file" id="imgPath" name="imgPath" accept="image/*">
+    <input type="file" id="imgPath" name="imgPath" accept="image/*" required>
     {{!-- <label for="imgUrl">Image URL</label>
     <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url"> --}}
     <input type="submit" class="btn" value="Create" />
@@ -26,10 +26,11 @@
 </div>
 
 </body>
+
 </html>
 
 
-  {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p> 
-  {{/if}}
+{{#if errorMessage}}
+<p class="error">{{errorMessage}}</p>
+{{/if}}
 </form>
