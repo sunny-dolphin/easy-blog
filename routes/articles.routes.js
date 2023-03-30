@@ -8,6 +8,8 @@ const Article = require("../models/article.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const User = require("../models/User.model");
+const cloudinary = require("../middleware/cloudinaryMiddleware");
+const multer = require("../middleware/multerMiddleware");
 
 // Create an article
 router.get("/create", isLoggedIn, (req, res, next) => {
@@ -15,7 +17,7 @@ router.get("/create", isLoggedIn, (req, res, next) => {
 });
 // Store the data received from create article form into database
 
-router.post("/create", isLoggedIn, (req, res, next) => {
+router.post("/create", isLoggedIn, multer, cloudinary, (req, res, next) => {
   const blog = {
     title: req.body.title,
     author: req.session.currentUser._id,

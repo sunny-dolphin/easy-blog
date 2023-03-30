@@ -1,5 +1,5 @@
 <div>
-  <form action="/articles/create" method="POST" class="form">
+  <form action="/articles/create" method="POST" class="form" enctype="multipart/form-data">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" placeholder="Enter the title...." required>
 
@@ -17,8 +17,10 @@
     </select>
     <label for="content">Content</label>
     <textarea id="content" name="content"></textarea required>
-    <label for="imgUrl">Image URL</label>
-    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url">
+    <label for="imgPath">Select an Image</label>
+    <input type="file" id="imgPath" name="imgPath" accept="image/*">
+    {{!-- <label for="imgUrl">Image URL</label>
+    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url"> --}}
     <input type="submit" class="btn" value="Create" />
   </form>
 </div>
