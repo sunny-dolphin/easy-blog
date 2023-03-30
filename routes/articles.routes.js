@@ -7,8 +7,7 @@ const Article = require("../models/article.model");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isOwner = require("../utils/isOwner");
 const User = require("../models/User.model");
-const cloudinary = require("../middleware/cloudinaryMiddleware");
-const multer = require("../middleware/multerMiddleware");
+const fileUploader = require("../config/cloudinary.config");
 
 // Create an article
 router.get("/create", isLoggedIn, (req, res, next) => {
@@ -16,23 +15,29 @@ router.get("/create", isLoggedIn, (req, res, next) => {
 });
 // Store the data received from create article form into database
 
-router.post("/create", isLoggedIn, multer, cloudinary, (req, res, next) => {
-  const blog = {
-    title: req.body.title,
-    author: req.session.currentUser._id,
-    topics: req.body.topics,
-    content: req.body.content,
-    imgUrl: req.body.imgUrl,
-  };
-  console.log(blog);
+router.post(
+  "/create",
+  isLoggedIn,
+  fileUploader.single("imgPath"),
+  (req, res, next) => {
+    console.log(req.file.path);
+    const blog = {
+      title: req.body.title,
+      author: req.session.currentUser._id,
+      topics: req.body.topics,
+      content: req.body.content,
+      imgUrl: req.file.path,
+    };
+    console.log(blog);
 
-  Article.create(blog)
-    .then((newArticle) => {
-      // console.log(newArticle);
-      res.redirect(`/articles/${newArticle.id}`);
-    })
-    .catch((err) => next(err));
-});
+    Article.create(blog)
+      .then((newArticle) => {
+        // console.log(newArticle);
+        res.redirect(`/articles/${newArticle.id}`);
+      })
+      .catch((err) => next(err));
+  }
+);
 
 router.get("/:id", (req, res, next) => {
   const articleId = req.params.id;
