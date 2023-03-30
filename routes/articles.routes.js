@@ -48,7 +48,7 @@ router.get("/:id", (req, res, next) => {
         creationMonth: article.createdAt.getMonth(),
         creationYear: article.createdAt.getFullYear(),
         img: article.imgUrl,
-        owner: isOwner(req, article.author),
+        owner: isOwner(req, article.author.id),
       };
       // console.log(article);
       res.render("../views/article/article-page", { article });
