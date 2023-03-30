@@ -14,8 +14,9 @@
     </select>
     <label for="content">Content</label>
     <textarea id="content" name="content">{{article.title}}</textarea required>
-    <label for="imgUrl">Image URL</label>
-    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}">
+    <label for="imgUrl" hidden>Image URL</label>
+    {{!-- <input type="file" id="imgPath" name="imgPath" accept="image/*"> --}}
+    <input type="text" id="imgUrl" name="imgUrl" placeholder="Enter a valid Image Url" value="{{article.imgUrl}}" hidden>
     <input type="submit" class="btn" value="Update" />
   </form>
 </div>
