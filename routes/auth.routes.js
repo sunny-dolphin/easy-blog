@@ -24,11 +24,11 @@ router.get("/signup", isLoggedOut, (req, res) => {
 router.post("/signup", isLoggedOut, (req, res) => {
   const { username, password } = req.body;
 
-  // Check that username, , and password are provided
+  // Check that username, email, and password are provided
   if (username === "" || password === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your username,  and password.",
+        "All fields are mandatory. Please provide your username, and password.",
     });
 
     return;
@@ -72,7 +72,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       } else if (error.code === 11000) {
         res.status(500).render("auth/signup", {
           errorMessage:
-            "Username and  need to be unique. Provide a valid username or .",
+            "Username needs to be unique. Provide a valid username.",
         });
       } else {
         next(error);
@@ -89,11 +89,11 @@ router.get("/login", isLoggedOut, (req, res) => {
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
-  // Check that username, , and password are provided
+  // Check that username, email, and password are provided
   if (username === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
-        "All fields are mandatory. Please provide username,  and password.",
+        "All fields are mandatory. Please provide username and password.",
     });
 
     return;
@@ -107,7 +107,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   //   });
   // }
 
-  // Search the database for a user with the  submitted in the form
+  // Search the database for a user with the username submitted in the form
   User.findOne({ username })
     .then((user) => {
       // If the user isn't found, send an error message that user provided wrong credentials

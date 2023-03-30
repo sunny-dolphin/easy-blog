@@ -6,13 +6,17 @@ const Article = require("../models/article.model");
 // Require necessary (isLoggedOut and isLoggedIn) middleware in order to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isOwner = require("../utils/isOwner");
+const User = require("../models/User.model");
+const cloudinary = require("../middleware/cloudinaryMiddleware");
+const multer = require("../middleware/multerMiddleware");
+
 // Create an article
 router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("create-article");
 });
 // Store the data received from create article form into database
 
-router.post("/create", isLoggedIn, (req, res, next) => {
+router.post("/create", isLoggedIn, multer, cloudinary, (req, res, next) => {
   const blog = {
     title: req.body.title,
     author: req.session.currentUser._id,
@@ -48,30 +52,6 @@ router.get("/:id", (req, res, next) => {
       };
       // console.log(article);
       res.render("../views/article/article-page", { article });
-    })
-    .catch((err) => next(err));
-});
-
-// Create an article
-router.get("/create", isLoggedIn, (req, res, next) => {
-  res.render("article/create-article");
-});
-
-router.post("/create", (req, res, next) => {
-  const userId = req.session._id;
-  const blog = {
-    title: req.body.title,
-    author: userId,
-    topics: req.body.topics,
-    content: req.body.content,
-    imgUrl: req.body.imgUrl,
-  };
-  console.log("This will be the new:", blog);
-
-  Article.create(blog)
-    .then((newArticle) => {
-      // console.log(newArticle);
-      res.redirect(`/articles/${newArticle.id}`);
     })
     .catch((err) => next(err));
 });

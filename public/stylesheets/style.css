@@ -115,6 +115,17 @@ nav li {
   background-color: #45a049;
 }
 
+.form input[type="file"] {
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .form1 {
   border-radius: 5px;
   background-color: #f2f2f2;
