@@ -3,24 +3,21 @@ const User = require("../models/User.model");
 const isOwner = require("../utils/isOwner");
 
 async function checkUser(userId) {
-  console.log("trying for user");
   try {
     userFromDb = await User.findById(userId);
     return userFromDb.id;
   } catch (err) {
     console.error(err);
     // res.status(499).render("error", { message: "User not found" });
-    res.status(499).render("error", { message: "User Not Found" });
+    res.status(404).render("error", { message: "User Not Found" });
   }
 }
 
 async function listArticles(req, searchForUserById) {
   try {
-    console.log("argument passed to list Articles" + searchForUserById);
     const query = {};
     if (searchForUserById) {
       const checkedUserId = await checkUser(searchForUserById);
-      console.log("checked user Id: " + checkedUserId);
       query.author = checkedUserId;
     }
     articlesFromDb = await Article.find(query).populate("author");

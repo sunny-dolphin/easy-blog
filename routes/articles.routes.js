@@ -48,7 +48,7 @@ router.get("/:id", (req, res, next) => {
         creationMonth: article.createdAt.getMonth(),
         creationYear: article.createdAt.getFullYear(),
         img: article.imgUrl,
-        owner: isOwner(req, article.author),
+        owner: isOwner(req, article.author.id),
       };
       // console.log(article);
       res.render("../views/article/article-page", { article });
@@ -59,9 +59,15 @@ router.get("/:id", (req, res, next) => {
 router.get("/:id/edit", (req, res, next) => {
   const { id } = req.params;
   Article.findById(id)
+    .populate("author")
     .then((articleToEdit) => {
-      console.log(articleToEdit);
-      res.render(`article/update-articles`, { article: articleToEdit });
+      if (isOwner(req, articleToEdit.author.id)) {
+        console.log(articleToEdit);
+        res.render(`article/update-articles`, { article: articleToEdit });
+      } else {
+        console.log("No right to edit this article");
+        res.redirect(401, "/");
+      }
     })
     .catch((e) => {
       console.log("error updating article", e);
@@ -70,14 +76,38 @@ router.get("/:id/edit", (req, res, next) => {
 });
 
 router.post("/:id/edit", (req, res, next) => {
-  Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((article) => res.redirect(`/users/${article.author._id}`))
-    .catch((error) => next(error));
+  const { id } = req.params;
+  Article.findById(id)
+    .populate("author")
+    .then((articleToEdit) => {
+      if (isOwner(req, articleToEdit.author.id)) {
+        return Article.findByIdAndUpdate(req.params.id, req.body, {
+          new: true,
+        });
+      } else {
+        console.log("Unauthorized");
+        res.redirect(401, "/");
+      }
+    })
+    .then((article) => res.redirect(`/articles/${article.id}`))
+    .catch((e) => {
+      console.log("error updating article", e);
+      next(e);
+    });
 });
 
 router.get("/:id/delete", (req, res, next) => {
   const { id } = req.params;
-  Article.findByIdAndDelete(id)
+  Article.findById(id)
+    .populate("author")
+    .then((articleToEdit) => {
+      if (isOwner(req, articleToEdit.author.id)) {
+        return Article.findByIdAndDelete(id);
+      } else {
+        console.log("Unauthorized");
+        res.redirect(401, "/");
+      }
+    })
     .then((article) => res.redirect(`/users/${article.author._id}`))
     .catch((error) => next(error));
 });

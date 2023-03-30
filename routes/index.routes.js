@@ -5,7 +5,6 @@ const articleList = require("../utils/articleList");
 router.get("/", (req, res, next) => {
   articleList(req)
     .then((articles) => {
-      console.log(articles);
       res.render("index", { articles });
     })
     .catch((err) => next(err));
