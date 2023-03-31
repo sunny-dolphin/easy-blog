@@ -22,7 +22,7 @@ nav {
   align-items: center;
   padding: 0px;
   border: 2px solid black;
-  outline: #fcfdfc solid 10px;
+  /* outline: #fcfdfc solid 10px; */
 }
 
 nav a {
