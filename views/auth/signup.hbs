@@ -1,7 +1,3 @@
-<br /><br /><br />
-<a href="/" class="btn">Home</a>
-<a href="#" class="btn">Authors</a>
-
 <div id="form" class="form">
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST">
@@ -11,9 +7,10 @@
     <input type="password" name="password" placeholder="Your password" />
     <br />
     <input type="submit" value="Signup" class="btn" />
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
   </form>
 </div>
+{{#if errorMessage}}
+<div class="alert alert-warning mx-auto" style="width=40vw" role="alert">
+  <p class="text-center">{{errorMessage}}</p>
+</div>
+{{/if}}
