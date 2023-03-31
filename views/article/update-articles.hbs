@@ -22,12 +22,8 @@
   </form>
 </div>
 
-</body>
-
-</html>
-
-
 {{#if errorMessage}}
-<p class="error">{{errorMessage}}</p>
+<div class="alert alert-warning mx-auto" style="width=40vw" role="alert">
+  <p class="text-center">{{errorMessage}}</p>
+</div>
 {{/if}}
-</form>
